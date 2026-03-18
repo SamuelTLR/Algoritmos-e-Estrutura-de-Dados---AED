@@ -1,0 +1,127 @@
+
+
+
+Em grego, "cryptos" significa secreto, oculto. A criptografia estuda os métodos para codificar uma mensagem de modo que só seu destinatário legítimo consiga interpretá-la. É a arte dos códigos secretos.
+Uma das técnicas de criptografia mais simples e conhecida consite em substituir cada letra da mensagem por outra, que se apresenta no alfabeto abaixo dela um número fixo de vezes. Conta a história que Júlio César (100-44 a.C.) utilizava este código nas mensagens enviadas a seus generais.
+
+
+
+A transformação pode ser representada alinhando-se dois alfabetos; o alfabeto cifrado é o alfabeto normal rotacionado à direita ou esquerda por um número de posições. Por exemplo, aqui está uma cifra de César usando uma rotação à esquerda de três posições (o parâmetro de troca, três neste caso, é usado como chave).
+
+
+
+Normal:  ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+Cifrado: DEFGHIJKLMNOPQRSTUVWXYZABC
+
+
+
+
+
+Embora cifra de César seja facilmente decifrada e na prática não ofereça essencialmente nenhuma segurança na comunicação, é frequentemente incorporado como parte de esquemas mais complexos.
+
+
+
+Este exercício consiste em ler uma mensagem criptografada de um arquivo texto e imprimir a mensagem descriptografada na saída padrão. A técnica de criptografia será a de códigos em bloco, que consiste em subdividir a mensagem em blocos de várias letras e embaralhar esses blocos.
+
+
+
+Por exemplo, considere a mensagem AMO LIVROS. Para codificá-la seguiremos os seguintes passos:
+
+
+
+• Substituir os espaços pelo símbolo # e completar a mensagem com este mesmo símbolo no final, caso tenha uma quantidade ímpar de letras;
+
+• Substituir cada letra por outra, utilizando a cifra de César com uma rotação à esquerda de três posições;
+
+• Subdividir a mensagem em blocos de n letras (neste caso n=2);
+
+• Refletir cada bloco;
+
+• Permutar os blocos trocando o primeiro com o último, o terceiro com a antepenúltimo, e assim por diante, mas deixando os outros como estão.
+
+
+
+Aplicando isto, passo a passo, à mensagem acima, obtemos primeiro:
+
+
+
+AMO#LIVROS
+
+
+
+Depois usamos a cifra de César:
+
+
+
+DPR#OLYURV
+
+
+
+Separamos em blocos de 2 letras:
+
+
+
+DP-R#-OL-YU-RV
+
+
+
+em seguida
+
+
+
+PD-#R-LO-UY-VR
+
+
+
+E, finalmente,
+
+
+
+VR-#R-LO-UY-PD
+
+
+
+que nos dá como mensagem codificada: 
+
+
+
+VR#RLOUYPD.
+
+
+
+
+
+Use o método explicado para poder decodificar a mensagem contida na entrada. Entretanto, utilize a cifra de César com uma rotação à esquerda de 5 posições.
+
+
+
+Referências:
+
+https://pt.wikipedia.org/wiki/Cifra_de_C%C3%A9sar 
+
+http://www.obmep.org.br/docs/apostila7.pdf
+
+
+
+
+
+Entrada
+Mensagem de texto codificada em uma única linha. Para simplificar, foram eliminados acentos e pontuação. Exemplo:
+tinhkn#ftyH#y#wfxfitufjxmsfk#jrqjzjytrhjr#fwfiknxji#v#sjx#nhjy#w#f#jsju#t#xjcjjih#wkfw#F
+
+Saída
+A saída do programa deverá seguir o padrão abaixo:
+
+EXEMPLO:
+
+Mensagem codificada:
+tinhkn#ftyH#y#wfxfitufjxmsfk#jrqjzjytrhjr#fwfiknxji#v#sjx#nhjy#w#f#jsju#t#xjcjjih#wkfw#F
+Mensagem decodificada:
+A cifra de Cesar pode ser facilmente decifrada mesmo que se tenha apenas o texto cifrado
+
+
+Mensagem codificada:
+XT#TNQWARF
+Mensagem decodificada:
+AMO LIVROS
