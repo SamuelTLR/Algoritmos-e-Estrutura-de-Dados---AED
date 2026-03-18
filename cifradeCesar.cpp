@@ -22,20 +22,6 @@ int findAlphabetIndex(char c) {
     return 0;
 }
 
-void rotate5LettersNext(string codigo, vector<char>& codigoCriptografado) {
-    for(int i = 0; i < codigo.length(); i++) {
-        int x = findAlphabetIndex(codigo[i]);
-        
-        if(tolower(codigo[i]) == tolower(alfabeto.at(x)))
-            if(isupper(codigo[i]))
-                codigoCriptografado.push_back(toupper(alfabeto.at((x + 5) % 26)));
-            else 
-                codigoCriptografado.push_back(alfabeto.at((x + 5) % 26));
-        else if(codigo[i] == ' ') 
-            codigoCriptografado.push_back('#');
-    }
-}
-
 string rotate5LettersNext(string codigo) {
     string codigoDecodificado = "";
     for(int i = 0; i < codigo.length(); i++) {
@@ -52,23 +38,6 @@ string rotate5LettersNext(string codigo) {
             codigoDecodificado += ' ';
     }
     return codigoDecodificado;
-}
-
-void separateBy2Letters(vector<char>& codigoCripto) {
-    string texto = "";
-    for(int i = 0; i < codigoCripto.size(); i++) {
-        if((i-2) % 2 == 0 && (i-2) >= 0) {
-            texto += '-';
-            texto += codigoCripto.at(i);
-        } else {
-            texto += codigoCripto.at(i);
-        }
-        codigoCripto.at(i) = texto[i];
-    }
-    int i = codigoCripto.size();
-    int tamanho = texto.length();
-    for(i; i < tamanho; i++)
-        codigoCripto.push_back(texto[i]);
 }
 
 string separateBy2Letters(string codigoCripto) {
@@ -90,24 +59,6 @@ string separateBy2Letters(string codigoCripto) {
     return codigoCripto;
 }
 
-void reflectEachPair(vector<char>& codigoCripto) {
-    char aux = 'a';
-    for(int i = 0; i < codigoCripto.size() - 1; i++) {
-        if(codigoCripto.at(i + 1) == '-') {
-            codigoCripto.at(i - 1) = codigoCripto.at(i);
-            codigoCripto.at(i) = aux; 
-        }
-        else if(i == codigoCripto.size() - 2) {
-            if(codigoCripto.at(i) != '-') {
-                aux = codigoCripto.at(i);
-                codigoCripto.at(i) = codigoCripto.at(i + 1);
-                codigoCripto.at(i + 1) = aux;
-            }
-        }
-        aux = codigoCripto.at(i);
-    }
-}
-
 string reflectEachPair(string codigoCripto) {
     char aux = 'a';
     for(int i = 0; i < codigoCripto.size() - 1; i++) {
@@ -125,16 +76,6 @@ string reflectEachPair(string codigoCripto) {
         aux = codigoCripto.at(i);
     }
     return codigoCripto;
-}
-
-void tradeLastPairToFirstPair(vector<char>& codigoCripto) {
-    char a, b;
-    a = codigoCripto.at(0);
-    b = codigoCripto.at(1);
-    codigoCripto.at(0) = codigoCripto.at(codigoCripto.size() - 2);
-    codigoCripto.at(1) = codigoCripto.at(codigoCripto.size() - 1);
-    codigoCripto.at(codigoCripto.size() - 2) = a;
-    codigoCripto.at(codigoCripto.size() - 1) = b;
 }
 
 string tradeLastPairToFirstPair(string codigoCripto) {
@@ -177,46 +118,22 @@ string eraseHifen(string codigoCripto) {
 }
 
 int main () {
-    string codigo = "tinhkn#ftyH#y#wfxfitufjxmsfk#jrqjzjytrhjr#fwfiknxji#v#sjx#nhjy#w#f#jsju#t#xjcjjih#wkfw#F";
+    string codigo = "", codigoDecodificado;
+    getline(cin, codigo);
+    codigoDecodificado = codigo;
+
+    codigoDecodificado = separateBy2Letters(codigoDecodificado);
+    codigoDecodificado = tradeLastPairToFirstPair(codigoDecodificado);
+    codigoDecodificado = reflectEachPair(codigoDecodificado);
+    codigoDecodificado = eraseHifen(codigoDecodificado);
+    codigoDecodificado = rotate5LettersNext(codigoDecodificado);
+
+    cout << "Mensagem codificada:\n";
+    for (char c : codigo) 
+        cout << c;
+    cout << "\nMensagem decodificada:\n";
+    for(char c : codigoDecodificado)
+        cout << c;
     cout << "\n";
-    //getline(cin, codigo);
-    vector<char> codigoCriptografado;
-
-    for (char c : codigo) {
-        cout << c;
-    }
-    cout << "\n\n";
-
-    codigo = separateBy2Letters(codigo);
-    for (char c : codigo) {
-        cout << c;
-    }
-    cout << "\n\n";
-
-    codigo = tradeLastPairToFirstPair(codigo);
-    for (char c : codigo) {
-        cout << c;
-    }
-    cout << "\n\n";
-
-    codigo = reflectEachPair(codigo);
-    for (char c : codigo) {
-        cout << c;
-    }
-    cout << "\n\n";
-
-    codigo = eraseHifen(codigo);
-    for (char c : codigo) {
-        cout << c;
-    }
-    cout << "\n\n";
-
-   
-    codigo = rotate5LettersNext(codigo);
-    for (char c : codigo) {
-        cout << c;
-    }
-    cout << "\n\n";
-   
     return SUCCESS;
 }
